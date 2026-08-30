@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cliente extends Model
 {
@@ -26,4 +27,9 @@ class Cliente extends Model
         'cliente_documento',
         'cliente_telefono',
     ];
+
+    public function suscripciones(): HasMany
+    {
+        return $this->hasMany(Suscripcion::class, 'cliente_id', 'cliente_id');
+    }
 }
