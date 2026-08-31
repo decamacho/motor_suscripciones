@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CobroController;
+use App\Http\Controllers\PasarelaController;
 use App\Http\Controllers\SuscripcionController;
+use App\Http\Controllers\WebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +22,10 @@ Route::put('/suscripciones/{suscripcion}', [SuscripcionController::class, 'updat
 Route::patch('/suscripciones/{suscripcion}/estado', [SuscripcionController::class, 'cambiarEstado']);
 Route::get('/suscripciones/{suscripcion}/cobros', [SuscripcionController::class, 'cobros']);
 Route::delete('/suscripciones/{suscripcion}', [SuscripcionController::class, 'destroy']);
+
+Route::post('/cobro/ejecutar', [CobroController::class, 'ejecutar']);
+Route::post('/pasarela/cobrar', [PasarelaController::class, 'cobrar'])->name('pasarela.cobrar');
+Route::post('/webhooks/gateway', [WebhookController::class, 'gateway'])->name('webhooks.gateway');
 
 Route::get('/user', function (Request $request) {
     return $request->user();
