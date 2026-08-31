@@ -31,8 +31,8 @@ class ClienteController extends Controller
     public function show(Cliente $cliente)
     {
         $cliente->load([
-            'suscripciones' => fn ($query) => $query
-                ->with('cobroSuscripciones')
+            'clienteSuscripciones' => fn ($query) => $query
+                ->with(['suscripcion', 'cobroSuscripciones'])
                 ->orderByDesc('created_at'),
         ]);
 

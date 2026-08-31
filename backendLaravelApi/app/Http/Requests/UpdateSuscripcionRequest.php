@@ -9,25 +9,21 @@ class UpdateSuscripcionRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'cliente_id' => ['sometimes', 'uuid', Rule::exists('cliente', 'cliente_id')],
             'suscripcion_nombre' => ['sometimes', 'string', 'max:100'],
             'suscripcion_descripcion' => ['nullable', 'string', 'max:255'],
             'suscripcion_precio' => ['sometimes', 'integer', 'min:1'],
             'suscripcion_periodo' => ['sometimes', Rule::in(['mensual', 'anual'])],
-            'suscripcion_estado' => ['sometimes', Rule::in(['activa', 'pausada', 'cancelada'])],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'cliente_id.exists' => 'El cliente seleccionado no es válido',
             'suscripcion_nombre.max' => 'El nombre no debe superar los 100 caracteres',
             'suscripcion_descripcion.max' => 'La descripción no debe superar los 255 caracteres',
             'suscripcion_precio.integer' => 'El precio debe ser un valor entero',
             'suscripcion_precio.min' => 'El precio debe ser mayor a cero',
             'suscripcion_periodo.in' => 'La periodicidad debe ser mensual o anual',
-            'suscripcion_estado.in' => 'El estado debe ser activa, pausada o cancelada',
         ];
     }
 }

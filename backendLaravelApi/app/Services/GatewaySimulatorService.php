@@ -16,7 +16,7 @@ class GatewaySimulatorService
                 'resultado' => 'timeout',
                 'cobro_suscripcion_id' => $cobro->cobro_suscripcion_id,
                 'notificado' => false,
-                'mensaje' => 'La pasarela no respondió; el intento queda pendiente',
+                'mensaje' => 'Hay problemas con la comunicacion de la pasarela',
             ];
         }
 

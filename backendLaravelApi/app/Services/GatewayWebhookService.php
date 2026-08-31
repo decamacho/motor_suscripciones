@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\ClienteSuscripcion;
 use App\Models\CobroSuscripcion;
-use App\Models\Suscripcion;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +14,10 @@ class GatewayWebhookService
         return DB::transaction(function () use ($cobroSuscripcionId, $resultado) {
             $cobro = CobroSuscripcion::query()->lockForUpdate()->findOrFail($cobroSuscripcionId);
 
-            $suscripcion = Suscripcion::query()->lockForUpdate()->findOrFail($cobro->suscripcion_id);
+            $clienteSuscripcion = ClienteSuscripcion::query()
+                ->lockForUpdate()
+                ->with('suscripcion')
+                ->findOrFail($cobro->cliente_suscripcion_id);
 
             if ($cobro->cobro_estado !== 'pendiente') {
                 return [
@@ -34,10 +37,10 @@ class GatewayWebhookService
                     'cobro_fecha' => $ahora,
                 ]);
 
-                $suscripcion->update([
-                    'suscripcion_estado' => 'activa',
-                    'ultimo_cobro_at' => $ahora,
-                    'proximo_cobro_at' => $this->proximaFechaDeCobro($suscripcion->suscripcion_periodo, $ahora),
+                $clienteSuscripcion->update([
+                    'estado_cliente_suscripcion' => 'activa',
+                    'fecha_ultimo_cobro' => $ahora,
+                    'fecha_proximo_cobro' => $this->proximaFechaDeCobro($clienteSuscripcion->suscripcion->suscripcion_periodo, $ahora),
                 ]);
 
                 return [
@@ -55,9 +58,9 @@ class GatewayWebhookService
                 'cobro_fecha' => $ahora,
             ]);
 
-            $suscripcion->update([
-                'suscripcion_estado' => $superoIntentos ? 'pausada' : 'activa',
-                'proximo_cobro_at' => $superoIntentos
+            $clienteSuscripcion->update([
+                'estado_cliente_suscripcion' => $superoIntentos ? 'pausada' : 'activa',
+                'fecha_proximo_cobro' => $superoIntentos
                     ? null
                     : $ahora->copy()->addMinutes((int) config('motor.reintento.intervalo_minutos', 2)),
             ]);
@@ -66,7 +69,7 @@ class GatewayWebhookService
                 'procesado' => true,
                 'cobro_suscripcion_id' => $cobro->cobro_suscripcion_id,
                 'estado' => 'fallido',
-                'suscripcion_pausada' => $superoIntentos,
+                'cliente_suscripcion_pausada' => $superoIntentos,
             ];
         });
     }

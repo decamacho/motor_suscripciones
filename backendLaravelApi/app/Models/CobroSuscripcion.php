@@ -20,7 +20,7 @@ class CobroSuscripcion extends Model
 
     protected $fillable = [
         'cobro_suscripcion_id',
-        'suscripcion_id',
+        'cliente_suscripcion_id',
         'cobro_monto',
         'cobro_estado',
         'cobro_intento_numero',
@@ -36,8 +36,8 @@ class CobroSuscripcion extends Model
         ];
     }
 
-    public function suscripcion(): BelongsTo
+    public function clienteSuscripcion(): BelongsTo
     {
-        return $this->belongsTo(Suscripcion::class, 'suscripcion_id', 'suscripcion_id');
+        return $this->belongsTo(ClienteSuscripcion::class, 'cliente_suscripcion_id', 'cliente_suscripcion_id');
     }
 }

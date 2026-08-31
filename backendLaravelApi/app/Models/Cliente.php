@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cliente extends Model
@@ -14,10 +15,8 @@ class Cliente extends Model
 
     protected $primaryKey = 'cliente_id';
 
-    // indica que no es un entero autoincrementable
     public $incrementing = false;
 
-    // indica que el tipo de llave es un string
     protected $keyType = 'string';
 
     protected $fillable = [
@@ -28,8 +27,15 @@ class Cliente extends Model
         'cliente_telefono',
     ];
 
-    public function suscripciones(): HasMany
+    public function clienteSuscripciones(): HasMany
     {
-        return $this->hasMany(Suscripcion::class, 'cliente_id', 'cliente_id');
+        return $this->hasMany(ClienteSuscripcion::class, 'cliente_id', 'cliente_id');
+    }
+
+    public function suscripciones(): BelongsToMany
+    {
+        return $this->belongsToMany(Suscripcion::class, 'cliente_suscripcion', 'cliente_id', 'suscripcion_id', 'cliente_id', 'suscripcion_id')
+            ->withPivot(['estado_cliente_suscripcion', 'fecha_ultimo_cobro', 'fecha_proximo_cobro'])
+            ->withTimestamps();
     }
 }

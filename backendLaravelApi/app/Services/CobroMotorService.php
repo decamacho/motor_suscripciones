@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\ClienteSuscripcion;
 use App\Models\CobroSuscripcion;
-use App\Models\Suscripcion;
 
 class CobroMotorService
 {
@@ -20,17 +20,18 @@ class CobroMotorService
             'tiempo_expirado' => 0,
         ];
 
-        $suscripciones = Suscripcion::query()
-            ->where('suscripcion_estado', 'activa')
+        $suscripciones = ClienteSuscripcion::query()
+            ->with('suscripcion')
+            ->where('estado_cliente_suscripcion', 'activa')
             ->where(function ($query) {
-                $query->whereNull('proximo_cobro_at')
-                    ->orWhere('proximo_cobro_at', '<=', now());
+                $query->whereNull('fecha_proximo_cobro')
+                    ->orWhere('fecha_proximo_cobro', '<=', now());
             })
             ->get();
 
         foreach ($suscripciones as $suscripcion) {
             $hayPendiente = CobroSuscripcion::query()
-                ->where('suscripcion_id', $suscripcion->suscripcion_id)
+                ->where('cliente_suscripcion_id', $suscripcion->cliente_suscripcion_id)
                 ->where('cobro_estado', 'pendiente')
                 ->exists();
 
@@ -39,7 +40,7 @@ class CobroMotorService
             }
 
             $ultimo = CobroSuscripcion::query()
-                ->where('suscripcion_id', $suscripcion->suscripcion_id)
+                ->where('cliente_suscripcion_id', $suscripcion->cliente_suscripcion_id)
                 ->orderByDesc('cobro_intento_numero')
                 ->first();
 
@@ -48,8 +49,8 @@ class CobroMotorService
                 : 1;
 
             $cobro = CobroSuscripcion::query()->create([
-                'suscripcion_id' => $suscripcion->suscripcion_id,
-                'cobro_monto' => $suscripcion->suscripcion_precio,
+                'cliente_suscripcion_id' => $suscripcion->cliente_suscripcion_id,
+                'cobro_monto' => $suscripcion->suscripcion->suscripcion_precio,
                 'cobro_estado' => 'pendiente',
                 'cobro_intento_numero' => $numero,
                 'cobro_fecha' => now(),

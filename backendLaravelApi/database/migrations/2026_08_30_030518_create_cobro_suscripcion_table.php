@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('cobro_suscripcion', function (Blueprint $table) {
             $table->uuid('cobro_suscripcion_id')->primary();
-            $table->foreignUuid('suscripcion_id')->constrained('suscripcion', 'suscripcion_id')->cascadeOnDelete();
+            $table->foreignUuid('cliente_suscripcion_id')->constrained('cliente_suscripcion', 'cliente_suscripcion_id')->cascadeOnDelete();
             $table->unsignedInteger('cobro_monto');
             $table->enum('cobro_estado', ['pendiente', 'exitoso', 'fallido'])->default('pendiente');
             $table->unsignedTinyInteger('cobro_intento_numero')->default(1);
