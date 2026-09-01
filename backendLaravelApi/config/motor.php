@@ -11,6 +11,10 @@ return [
         'anual' => 35,
     ],
 
+    'cobro' => [
+        'timeout_min' => 2,
+    ],
+
     'pasarela' => [
         'probabilidades' => [
             'aprobado' => 60,

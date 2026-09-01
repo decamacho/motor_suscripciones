@@ -11,15 +11,6 @@ class GatewaySimulatorService
     {
         $resultado = strtolower($resultadoForzado ?? $this->resultadoAleatorio());
 
-        if ($resultado === 'timeout') {
-            return [
-                'resultado' => 'timeout',
-                'cobro_suscripcion_id' => $cobro->cobro_suscripcion_id,
-                'notificado' => false,
-                'mensaje' => 'Hay problemas con la comunicacion de la pasarela',
-            ];
-        }
-
         $notificado = $this->notificarWebhook($cobro, $resultado);
 
         return [

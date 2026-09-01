@@ -11,25 +11,28 @@ use Illuminate\Support\Facades\Route;
 
 // metodos clientes
 Route::get('/clientes', [ClienteController::class, 'index']);
-Route::post('/cliente', [ClienteController::class, 'store']);
-Route::get('/cliente/{cliente}', [ClienteController::class, 'show']);
-Route::put('/cliente/{cliente}', [ClienteController::class, 'update']);
-Route::delete('/cliente/{cliente}', [ClienteController::class, 'destroy']);
+Route::post('/clientes', [ClienteController::class, 'store']);
+Route::get('/clientes/{cliente}', [ClienteController::class, 'show']);
+Route::put('/clientes/{cliente}', [ClienteController::class, 'update']);
+Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy']);
 
 // metodos suscripciones
 Route::get('/suscripciones', [SuscripcionController::class, 'index']);
-Route::post('/suscripcion', [SuscripcionController::class, 'store']);
-Route::get('/suscripcion/{suscripcion}', [SuscripcionController::class, 'show']);
-Route::put('/suscripcion/{suscripcion}', [SuscripcionController::class, 'update']);
-Route::delete('/suscripcion/{suscripcion}', [SuscripcionController::class, 'destroy']);
+Route::post('/suscripciones', [SuscripcionController::class, 'store']);
+Route::get('/suscripciones/{suscripcion}', [SuscripcionController::class, 'show']);
+Route::put('/suscripciones/{suscripcion}', [SuscripcionController::class, 'update']);
+Route::delete('/suscripciones/{suscripcion}', [SuscripcionController::class, 'destroy']);
 
 // metodos suscripciones/clientes
 Route::get('/cliente-suscripciones', [ClienteSuscripcionController::class, 'index']);
-Route::post('/cliente-suscripcion', [ClienteSuscripcionController::class, 'store']);
-Route::get('/cliente-suscripcion/{clienteSuscripcion}', [ClienteSuscripcionController::class, 'show']);
-Route::put('/cliente-suscripcion/{clienteSuscripcion}', [ClienteSuscripcionController::class, 'update']);
-Route::get('/cliente-suscripcion/{clienteSuscripcion}/cobro', [ClienteSuscripcionController::class, 'cobros']);
-Route::delete('/cliente-suscripcion/{clienteSuscripcion}', [ClienteSuscripcionController::class, 'destroy']);
+Route::post('/cliente-suscripciones', [ClienteSuscripcionController::class, 'store']);
+Route::get('/cliente-suscripciones/{clienteSuscripcion}', [ClienteSuscripcionController::class, 'show']);
+Route::put('/cliente-suscripciones/{clienteSuscripcion}', [ClienteSuscripcionController::class, 'update']);
+Route::get('/cliente-suscripciones/{clienteSuscripcion}/cobros', [ClienteSuscripcionController::class, 'cobros']);
+Route::delete('/cliente-suscripciones/{clienteSuscripcion}', [ClienteSuscripcionController::class, 'destroy']);
+
+// cobro puntual de una suscripcion
+Route::post('/cliente-suscripciones/{clienteSuscripcion}/cobrar', [CobroController::class, 'cobrar']);
 
 // proceso de cobros y pasarela simulada
 Route::post('/cobro/ejecutar', [CobroController::class, 'ejecutar']);

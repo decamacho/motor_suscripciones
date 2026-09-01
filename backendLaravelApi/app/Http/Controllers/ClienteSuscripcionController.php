@@ -24,7 +24,11 @@ class ClienteSuscripcionController extends Controller
 
     public function store(StoreClienteSuscripcionRequest $request)
     {
-        $suscripcion = ClienteSuscripcion::create($request->validated());
+        $suscripcion = ClienteSuscripcion::create(
+            array_merge($request->validated(), [
+                'fecha_proximo_cobro' => now(),
+            ])
+        );
 
         return ApiResponse::success(
             $suscripcion->load(['cliente', 'suscripcion']),

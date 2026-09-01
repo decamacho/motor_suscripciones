@@ -1,0 +1,64 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { message } from "antd";
+import { api } from "../../services/api";
+
+export const useSuscripcion = ({
+  editing,
+  setModalOpen,
+  setEditing,
+  reset,
+}) => {
+  const queryClient = useQueryClient();
+
+  const invalidate = () =>
+    queryClient.invalidateQueries({ queryKey: ["planes"] });
+
+  const {
+    data: dataSuscripcion,
+    isLoading: isLoadingSuscripcion,
+    isFetching: isFetchingSuscripcion,
+    isError: isErrorSuscripcion,
+    error: errorSuscripcion,
+  } = useQuery({
+    queryKey: ["planes"],
+    queryFn: () => api.get("/suscripciones"),
+  });
+
+  const saveMutationSuscripcion = useMutation({
+    mutationFn: (values) =>
+      editing
+        ? api.put(`/suscripciones/${editing.suscripcion_id}`, values)
+        : api.post("/suscripciones", values),
+    onSuccess: () => {
+      message.success(editing ? "Plan actualizado" : "Plan creado");
+      setModalOpen(false);
+      setEditing(null);
+      reset();
+      invalidate();
+    },
+    onError: (e) => message.error(e.message),
+  });
+
+  const deleteMutationSuscripcion = useMutation({
+    mutationFn: (id) => api.delete(`/suscripciones/${id}`),
+    onSuccess: () => {
+      message.success("Plan eliminado");
+      invalidate();
+    },
+    onError: (e) => message.error(e.message),
+  });
+
+  return {
+    state: {
+      dataSuscripcion,
+      isLoadingSuscripcion,
+      isFetchingSuscripcion,
+      isErrorSuscripcion,
+      errorSuscripcion,
+    },
+    mutation: {
+      saveMutationSuscripcion,
+      deleteMutationSuscripcion,
+    },
+  };
+};
