@@ -114,9 +114,9 @@ export default function Clientes() {
                 <Form.Item label="Suscripción (opcional)">
                   <Select
                     {...field}
-                    placeholder="Selecciona un plan (opcional)"
+                    placeholder="Selecciona un suscripción (opcional)"
                     allowClear
-                    options={(state.dataPlanes || []).map((p) => ({
+                    options={(state.suscripciones || []).map((p) => ({
                       value: p.suscripcion_id,
                       label: `${p.suscripcion_nombre} (${p.suscripcion_periodo})`,
                     }))}

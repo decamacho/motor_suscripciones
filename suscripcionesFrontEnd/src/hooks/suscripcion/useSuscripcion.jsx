@@ -12,11 +12,12 @@ export const useSuscripcion = ({
   const queryClient = useQueryClient();
 
   const invalidate = () =>
-    queryClient.invalidateQueries({ queryKey: ["planes"] });
+    queryClient.invalidateQueries({ queryKey: ["suscripciones"] });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      queryClient.invalidateQueries({ queryKey: ["planes"] });
+      queryClient.invalidateQueries({ queryKey: ["suscripciones"] });
+      queryClient.invalidateQueries({ queryKey: ["suscripciones-cliente"] });
     }, 180000);
     return () => clearInterval(interval);
   }, [queryClient]);
@@ -28,7 +29,7 @@ export const useSuscripcion = ({
     isError: isErrorSuscripcion,
     error: errorSuscripcion,
   } = useQuery({
-    queryKey: ["planes"],
+    queryKey: ["suscripciones"],
     queryFn: () => api.get("/suscripciones"),
   });
 

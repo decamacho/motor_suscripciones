@@ -1,0 +1,662 @@
+{
+  "info": {
+    "_postman_id": "558d68f2-63e9-46ef-8886-74fa16d3c88d",
+    "name": "motor_suscripciones",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55556703",
+    "_collection_link": "https://go.postman.co/collection/55556703-558d68f2-63e9-46ef-8886-74fa16d3c88d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "cliente",
+      "item": [
+        {
+          "name": "listado clientes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localhostapi}}/clientes",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "creacion cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cliente_nombre\": \"Usuario Prueba\",\r\n    \"cliente_correo\": \"prueba1@gmail.com\",\r\n    \"cliente_documento\": \"1001090001\",\r\n    \"cliente_telefono\": \"3000000001\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/clientes",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "actualizar cliente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cliente_nombre\": \"Usuario Pruebas 8\",\r\n    \"cliente_correo\": \"prueba82@gmail.com\",\r\n    \"cliente_documento\": \"1001091008\",\r\n    \"cliente_telefono\": \"3100000008\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/clientes/{{cliente_id}}",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "clientes",
+                "{{cliente_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "eliminar cliente",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/clientes/{{cliente_id}}",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "clientes",
+                "{{cliente_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "informacion cliente",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/clientes/{{cliente_id}}",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "clientes",
+                "{{cliente_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "suscripcion",
+      "item": [
+        {
+          "name": "listado suscripciones",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localhostapi}}/suscripciones",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "suscripciones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "creacion suscripcion",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"suscripcion_nombre\": \"Plan basico\",\r\n  \"suscripcion_descripcion\": \"Acceso a varias maquinas\",\r\n  \"suscripcion_precio\": 80000,\r\n  \"suscripcion_periodo\": \"mensual\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/suscripciones",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "suscripciones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "actualizar suscripcion",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cliente_nombre\": \"Usuario Pruebas 8\",\r\n    \"cliente_correo\": \"prueba82@gmail.com\",\r\n    \"cliente_documento\": \"1001091008\",\r\n    \"cliente_telefono\": \"3100000008\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/suscripciones/{{suscripcion_id}}",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "suscripciones",
+                "{{suscripcion_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "eliminar suscripcion",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/suscripciones/{{suscripcion_id}}",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "suscripciones",
+                "{{suscripcion_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "informacion suscripcion",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/suscripciones/{{suscripcion_id}}",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "suscripciones",
+                "{{suscripcion_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "suscripcion cliente",
+      "item": [
+        {
+          "name": "listado suscripciones clientes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localhostapi}}/cliente-suscripciones",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "cliente-suscripciones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "creacion suscripcion cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"cliente_id\": \"01a0594e-be1a-7136-a722-2654c0437d68\",\r\n  \"suscripcion_id\": \"01a05942-cc86-72a4-b601-b51c4de09c2a\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/cliente-suscripciones",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "cliente-suscripciones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "editar suscripcion cliente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"estado_cliente_suscripcion\": \"activa\",\r\n  \"fecha_ultimo_cobro\": \"2026-08-31 19:00:00\",\r\n  \"fecha_proximo_cobro\": \"2026-08-31 19:00:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/cliente-suscripciones/{{cliente_suscripcion_id}}",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "cliente-suscripciones",
+                "{{cliente_suscripcion_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "edicion valores suscripcion cliente",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"estado_cliente_suscripcion\": \"activa\",\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/cliente-suscripciones/{{cliente_suscripcion_id}}",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "cliente-suscripciones",
+                "{{cliente_suscripcion_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "eliminar relacion",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/cliente-suscripciones/{{cliente_suscripcion_id}}",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "cliente-suscripciones",
+                "{{cliente_suscripcion_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "detalle suscripcion cliente",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/cliente-suscripciones/{{cliente_suscripcion_id}}",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "cliente-suscripciones",
+                "{{cliente_suscripcion_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "cobro suscripcion",
+      "item": [
+        {
+          "name": "cobro x suscripcion",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{localhostapi}}/cliente-suscripciones/{{cliente_suscripcion_id}}/cobros",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "cliente-suscripciones",
+                "{{cliente_suscripcion_id}}",
+                "cobros"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "proceso cobro",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"resultado\": \"rechazado\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/cobro/ejecutar",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "cobro",
+                "ejecutar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "simulador pasarela",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"cobro_suscripcion_id\": \"01a05962-854b-71d7-bad1-355f20bc9859\"\r\n  // opcional \"resultado\": \"aprobado\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/pasarela/cobrar",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "pasarela",
+                "cobrar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "webhooks pasarela",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"cobro_suscripcion_id\": \"01a05962-854b-71d7-bad1-355f20bc9859\",\r\n  \"resultado\": \"aprobado\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{localhostapi}}/webhooks/gateway",
+              "host": [
+                "{{localhostapi}}"
+              ],
+              "path": [
+                "webhooks",
+                "gateway"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "localhostapi",
+      "value": ""
+    },
+    {
+      "key": "cliente_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "suscripcion_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "cliente_suscripcion_id",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

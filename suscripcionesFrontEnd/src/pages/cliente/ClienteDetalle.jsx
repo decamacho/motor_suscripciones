@@ -47,9 +47,9 @@ export default function ClienteDetalle() {
 
   const cliente = state.dataCliente;
   const subtipos = cliente?.cliente_suscripciones || [];
-  const planesAsignados = subtipos.map((s) => s.suscripcion_id);
-  const planesDisponibles = (state.planes || []).filter(
-    (p) => !planesAsignados.includes(p.suscripcion_id)
+  const suscripcionesAsignadas = subtipos.map((s) => s.suscripcion_id);
+  const suscripcionesDisponibles = (state.suscripciones || []).filter(
+    (p) => !suscripcionesAsignadas.includes(p.suscripcion_id)
   );
 
   const columns = [
@@ -146,7 +146,7 @@ export default function ClienteDetalle() {
             type="primary"
             icon={<PlusOutlined />}
             onClick={functions.openAssign}
-            disabled={planesDisponibles.length === 0}
+            disabled={suscripcionesDisponibles.length === 0}
           >
             Añadir suscripción
           </Button>
@@ -160,7 +160,7 @@ export default function ClienteDetalle() {
           loading={state.isFetchingCliente || mutation.asignarMutation.isPending || mutation.deleteMutation.isPending}
           locale={{
             emptyText:
-              "Este cliente no tiene suscripciones. Crea planes primero y luego asigna uno.",
+              "Este cliente no tiene suscripciones. Crea suscripciones primero y luego asigna una.",
           }}
         />
       </Card>
@@ -179,7 +179,7 @@ export default function ClienteDetalle() {
           <Controller
             name="suscripcion_id"
             control={control}
-            rules={{ required: "Selecciona un plan" }}
+            rules={{ required: "Selecciona un Suscripcion" }}
             render={({ field, fieldState }) => (
               <Form.Item
                 label="Plan de suscripción"
@@ -188,9 +188,9 @@ export default function ClienteDetalle() {
               >
                 <Select
                   {...field}
-                  placeholder="Selecciona el plan"
+                  placeholder="Selecciona el suscripción"
                   disabled={!!state.editing}
-                  options={planesDisponibles.map((p) => ({
+                  options={suscripcionesDisponibles.map((p) => ({
                     value: p.suscripcion_id,
                     label: `${p.suscripcion_nombre} (${p.suscripcion_periodo})`,
                   }))}

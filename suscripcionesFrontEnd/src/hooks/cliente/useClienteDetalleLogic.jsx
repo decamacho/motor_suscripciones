@@ -21,8 +21,8 @@ export const useClienteDetalleLogic = (clienteId) => {
     queryFn: () => api.get(`/clientes/${clienteId}`),
   });
 
-  const { data: planes } = useQuery({
-    queryKey: ["planes"],
+  const { data: suscripciones } = useQuery({
+    queryKey: ["suscripciones"],
     queryFn: () => api.get("/suscripciones"),
   });
 
@@ -117,7 +117,7 @@ export const useClienteDetalleLogic = (clienteId) => {
       isFetchingCliente: isFetching,
       isErrorCliente: isError,
       errorCliente: error,
-      planes,
+      suscripciones,
       modalOpen,
       setModalOpen,
       editing,

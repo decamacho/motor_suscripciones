@@ -42,7 +42,7 @@ export default function Suscripcion() {
             Editar
           </Button>
           <Popconfirm
-            title="¿Eliminar este plan?"
+            title="¿Eliminar este suscripción?"
             onConfirm={() => mutation.deleteMutationSuscripcion.mutate(record.suscripcion_id)}
           >
             <Button type="link" danger>
@@ -63,7 +63,7 @@ export default function Suscripcion() {
           icon={<PlusOutlined />}
           onClick={functions.openCreate}
         >
-          Nuevo plan
+          Nueva suscripción
         </Button>
       }
     >

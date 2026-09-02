@@ -25,6 +25,7 @@ export default function SuscripcionDetalle() {
     queryKey: ['suscripcion-cobros', id],
     queryFn: () => api.get(`/cliente-suscripciones/${id}/cobros`),
     enabled: !!id,
+    refetchInterval: 180000,
   })
 
   const cobroColumns = [

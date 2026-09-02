@@ -90,14 +90,22 @@ class CobroMotorService
 
     private function crearYCobrar(ClienteSuscripcion $suscripcion, ?string $resultadoForzado): array
     {
+        $maxIntentos = (int) config('motor.reintento.max_intentos', 3);
+
         $ultimo = CobroSuscripcion::query()
             ->where('cliente_suscripcion_id', $suscripcion->cliente_suscripcion_id)
-            ->orderByDesc('cobro_intento_numero')
+            ->orderByDesc('cobro_fecha')
             ->first();
 
-        $numero = $ultimo !== null && $ultimo->cobro_estado === 'fallido'
-            ? (int) $ultimo->cobro_intento_numero + 1
-            : 1;
+        $numero = 1;
+
+        if ($ultimo !== null && $ultimo->cobro_estado === 'fallido') {
+            $ultimoIntento = (int) $ultimo->cobro_intento_numero;
+
+            if ($ultimoIntento < $maxIntentos) {
+                $numero = $ultimoIntento + 1;
+            }
+        }
 
         $cobro = CobroSuscripcion::query()->create([
             'cliente_suscripcion_id' => $suscripcion->cliente_suscripcion_id,

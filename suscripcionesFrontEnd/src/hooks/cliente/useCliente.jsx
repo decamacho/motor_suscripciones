@@ -7,7 +7,7 @@ export const useCliente = ({ editing, setModalOpen, setEditing, reset }) => {
   
   const invalidate = () => {
     queryClient.invalidateQueries({ queryKey: ["clientes"] });
-    queryClient.invalidateQueries({ queryKey: ["planes"] });
+    queryClient.invalidateQueries({ queryKey: ["suscripciones"] });
   };
 
   const {
@@ -22,10 +22,10 @@ export const useCliente = ({ editing, setModalOpen, setEditing, reset }) => {
   });
 
   const {
-    data: dataPlanes,
-    isLoading: isLoadingPlanes,
+    data: dataSuscripciones,
+    isLoading: isLoadingSuscripciones,
   } = useQuery({
-    queryKey: ["planes"],
+    queryKey: ["suscripciones"],
     queryFn: () => api.get("/suscripciones"),
   });
 
@@ -74,8 +74,8 @@ export const useCliente = ({ editing, setModalOpen, setEditing, reset }) => {
       isFetchingCliente,
       isErrorCliente,
       errorCliente,
-      dataPlanes,
-      isLoadingPlanes,
+      dataSuscripciones,
+      isLoadingSuscripciones,
     },
     mutation: {
       saveMutation,
