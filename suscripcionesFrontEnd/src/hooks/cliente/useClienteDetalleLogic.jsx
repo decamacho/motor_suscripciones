@@ -39,10 +39,17 @@ export const useClienteDetalleLogic = (clienteId) => {
     mutationFn: async (values) => {
       const { estado_cliente_suscripcion, resultado_forzado } = values;
       if (editing) {
-        return api.put(
+        const result = await api.put(
           `/cliente-suscripciones/${editing.cliente_suscripcion_id}`,
           { estado_cliente_suscripcion },
         );
+        if (estado_cliente_suscripcion === "activa" && editing.estado_cliente_suscripcion === "pausada") {
+          await api.post(
+            `/cliente-suscripciones/${editing.cliente_suscripcion_id}/cobrar`,
+            { resultado: resultado_forzado ?? null },
+          );
+        }
+        return result;
       }
       const relacion = await api.post("/cliente-suscripciones", {
         suscripcion_id: values.suscripcion_id,
@@ -89,6 +96,7 @@ export const useClienteDetalleLogic = (clienteId) => {
     setEditing(record);
     reset({
       suscripcion_id: record.suscripcion_id,
+      suscripcion_nombre: record.suscripcion_nombre,
       estado_cliente_suscripcion: record.estado_cliente_suscripcion,
       resultado_forzado: undefined,
     });

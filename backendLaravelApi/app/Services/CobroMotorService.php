@@ -30,6 +30,10 @@ class CobroMotorService
             ->get();
 
         foreach ($suscripciones as $suscripcion) {
+            if ($suscripcion->estado_cliente_suscripcion !== 'activa') {
+                continue;
+            }
+
             $pendiente = CobroSuscripcion::query()
                 ->where('cliente_suscripcion_id', $suscripcion->cliente_suscripcion_id)
                 ->where('cobro_estado', 'pendiente')

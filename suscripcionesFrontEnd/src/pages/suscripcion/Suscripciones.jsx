@@ -42,7 +42,7 @@ export default function Suscripciones() {
     {
       title: 'Precio',
       dataIndex: 'suscripcion_precio',
-      render: (v) => `${v} $`,
+      render: (v) => `$${v}`,
     },
     {
       title: 'Estado',

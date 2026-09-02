@@ -21,7 +21,7 @@ export const TYPE_FORM_SUSCRIPCION = {
     required: "El campo periodo es obligatorio",
     options: [
       { value: "mensual", label: "Mensual" },
-      { value: "trimestral", label: "Trimestral" },
+      { value: "anual", label: "Anual" },
     ],
     placeholder: "Selecciona el periodo"
   },

@@ -23,9 +23,9 @@ class CobroController extends Controller
 
     public function cobrar(ClienteSuscripcion $clienteSuscripcion, CobrarSuscripcionRequest $request, CobroMotorService $motor)
     {
-        if ($clienteSuscripcion->estado_cliente_suscripcion !== 'activa') {
+        if ($clienteSuscripcion->estado_cliente_suscripcion === 'cancelada') {
             return ApiResponse::error(
-                'La suscripción debe estar activa para poder cobrarla',
+                'La suscripción está cancelada',
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }

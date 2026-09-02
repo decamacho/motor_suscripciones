@@ -25,7 +25,7 @@ export default function Suscripcion() {
     {
       title: "Precio",
       dataIndex: "suscripcion_precio",
-      render: (v) => `${v} $`,
+      render: (v) => `$${v}`,
     },
     {
       title: "Periodo",
@@ -129,7 +129,7 @@ export default function Suscripcion() {
                   {...field}
                   min={1}
                   style={{ width: "100%" }}
-                  addonAfter="$"
+                  addonBefore="$"
                 />
               </Form.Item>
             )}

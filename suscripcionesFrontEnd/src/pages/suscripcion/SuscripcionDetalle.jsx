@@ -37,7 +37,7 @@ export default function SuscripcionDetalle() {
     {
       title: 'Monto',
       dataIndex: 'cobro_monto',
-      render: (v) => `${v} $`,
+      render: (v) => `$${v}`,
     },
     {
       title: 'Estado del cobro',
@@ -85,7 +85,7 @@ export default function SuscripcionDetalle() {
             <EstadoTag value={susc.suscripcion_periodo} />
           </Descriptions.Item>
           <Descriptions.Item label="Precio">
-            {susc.suscripcion_precio} $
+            ${susc.suscripcion_precio}
           </Descriptions.Item>
           <Descriptions.Item label="Estado">
             <EstadoTag value={susc.estado_cliente_suscripcion} />

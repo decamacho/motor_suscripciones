@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Jobs\NotificarWebhookGateway;
 use App\Models\CobroSuscripcion;
-use Illuminate\Support\Facades\Http;
 
 class GatewaySimulatorService
 {
@@ -11,12 +11,12 @@ class GatewaySimulatorService
     {
         $resultado = strtolower($resultadoForzado ?? $this->resultadoAleatorio());
 
-        $notificado = $this->notificarWebhook($cobro, $resultado);
+        NotificarWebhookGateway::dispatch($cobro->cobro_suscripcion_id, $resultado);
 
         return [
             'resultado' => $resultado,
             'cobro_suscripcion_id' => $cobro->cobro_suscripcion_id,
-            'notificado' => $notificado,
+            'notificado' => true,
         ];
     }
 
@@ -29,23 +29,5 @@ class GatewaySimulatorService
             $azar <= 90 => 'rechazado',
             default => 'timeout',
         };
-    }
-
-    private function notificarWebhook(CobroSuscripcion $cobro, string $resultado): bool
-    {
-        try {
-            Http::asJson()
-                ->acceptJson()
-                ->post(route('webhooks.gateway'), [
-                    'cobro_suscripcion_id' => $cobro->cobro_suscripcion_id,
-                    'resultado' => $resultado,
-                ]);
-
-            return true;
-        } catch (\Throwable $e) {
-            report($e);
-
-            return false;
-        }
     }
 }

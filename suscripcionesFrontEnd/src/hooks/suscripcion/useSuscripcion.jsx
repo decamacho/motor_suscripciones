@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { message } from "antd";
 import { api } from "../../services/api";
+import { useEffect } from "react";
 
 export const useSuscripcion = ({
   editing,
@@ -12,6 +13,13 @@ export const useSuscripcion = ({
 
   const invalidate = () =>
     queryClient.invalidateQueries({ queryKey: ["planes"] });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      queryClient.invalidateQueries({ queryKey: ["planes"] });
+    }, 180000);
+    return () => clearInterval(interval);
+  }, [queryClient]);
 
   const {
     data: dataSuscripcion,
