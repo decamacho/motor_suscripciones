@@ -2,71 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreClienteRequest;
+use App\Http\Requests\UpdateClienteRequest;
 use App\Models\Cliente;
-use Illuminate\Http\Request;
+use App\Support\ApiResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return Cliente::all();
+        $listadoClientes = Cliente::withCount('suscripciones')->orderByDesc('created_at')->get();
+
+        return ApiResponse::success($listadoClientes);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreClienteRequest $request)
     {
-        //
+        $cliente = Cliente::create($request->validated());
+
+        return ApiResponse::success(
+            $cliente,
+            'Cliente creado exitosamente',
+            Response::HTTP_CREATED
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'cliente_nombre' => 'required|string|max:100',
-            'cliente_correo' => 'required|string|email|max:150|unique:cliente,cliente_correo',
-            'cliente_documento' => 'required|string|max:10|unique:cliente,cliente_documento',
-            'cliente_telefono' => 'required|string|max:10',
-        ]);
-        $cliente = Cliente::create($request->all());
-        return response()->json($cliente, 201);
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Cliente $cliente)
     {
-        //
+        $cliente->load([
+            'clienteSuscripciones' => fn ($query) => $query
+                ->with(['suscripcion', 'cobroSuscripciones'])
+                ->orderByDesc('created_at'),
+        ]);
+
+        return ApiResponse::success($cliente);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Cliente $cliente)
+    public function update(UpdateClienteRequest $request, Cliente $cliente)
     {
-        //
+        $cliente->update($request->validated());
+
+        return ApiResponse::success(
+            $cliente,
+            'Cliente actualizado exitosamente'
+        );
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Cliente $cliente)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Cliente $cliente)
     {
-        //
+        $cliente->delete();
+
+        return ApiResponse::success(
+            null,
+            'Cliente eliminado exitosamente'
+        );
     }
 }
